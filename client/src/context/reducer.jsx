@@ -26,6 +26,8 @@ import {
     CLEAR_FILTERS,
     CHANGE_PAGE,
     DELETE_JOB_ERROR,
+    GET_CURRENT_USER_BEGIN,
+    GET_CURRENT_USER_SUCCESS,
 } from "./actions.jsx";
 import {initialState} from "./appContext.jsx";
 
@@ -59,12 +61,13 @@ const reducer = (state, action) => {
         return {...state, isLoading: true}
     }
 
-    if (action.type === SETUP_USER_SUCCESS || action.type === UPDATE_USER_SUCCESS) {
+    if (action.type === SETUP_USER_SUCCESS ||
+        action.type === UPDATE_USER_SUCCESS
+    ) {
 
         return {
             ...state,
             isLoading: false,
-            token: action.payload.token,
             user: action.payload.user,
             userLocation: action.payload.location,
             jobLocation: action.payload.location,
@@ -101,7 +104,7 @@ const reducer = (state, action) => {
         return {
             ...initialState,
             user: null,
-            token: null,
+            userLoading: false,
             userLocation: '',
             jobLocation: '',
         }
@@ -223,6 +226,24 @@ const reducer = (state, action) => {
         return {
             ...state,
             page: action.payload.page
+        }
+    }
+
+    if (action.type === GET_CURRENT_USER_BEGIN) {
+        return {
+            ...state,
+            userLoading: true,
+            showAlert: false
+        }
+    }
+
+    if (action.type === GET_CURRENT_USER_SUCCESS) {
+        return {
+            ...state,
+            userLoading: false,
+            user: action.payload.user,
+            userLocation: action.payload.location,
+            jobLocation: action.payload.location
         }
     }
 

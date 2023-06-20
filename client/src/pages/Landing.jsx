@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 
 import Wrapper from '../assets/wrappers/LandingPage.js';
 import Logo from "../components/Logo.jsx";
+import {useAppContext} from "../context/appContext.jsx";
 
 const Landing = (props) => {
+    const {user} = useAppContext();
+
+    if (user) {
+        return <Navigate to={'/'}/>;
+    }
     return (
         <Wrapper >
             <nav>

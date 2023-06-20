@@ -14,6 +14,7 @@ import path from 'path';
 import helmet from "helmet";
 import xss from "helmet";
 import mongoSanitize from 'express-mongo-sanitize';
+import cookieParser from 'cookie-parser';
 
 // db and authenticateUser
 import connectDB from "./db/connect.js";
@@ -37,7 +38,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(path.resolve(__dirname, './client/dist')));
 app.use(express.json());
-
+app.use(cookieParser());
 app.use(helmet());
 app.use(xss());
 app.use(mongoSanitize());

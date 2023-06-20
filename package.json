@@ -5,6 +5,9 @@
     "main": "app.js",
     "type": "module",
     "scripts": {
+        "setup-production": "npm run install-client && npm run build-client && npm install",
+        "install-client": "cd client && npm install",
+        "build-client": "cd client && npm run build",
         "server": "supervisor app.js ",
         "client": "npm run dev --prefix client",
         "start": "concurrently --kill-others-on-fail \"npm run client\" \" npm run server\""
@@ -25,6 +28,7 @@
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
+        "cookie-parser": "^1.4.6",
         "dotenv": "^16.1.4",
         "express": "^4.18.2",
         "express-async-errors": "^3.1.1",
